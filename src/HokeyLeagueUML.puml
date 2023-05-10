@@ -1,0 +1,75 @@
+@startuml
+
+enum Position{
+ATTACKER,
+DEFENDER,
+GOALKEEPER
+}
+
+enum CoachLevel{
+BEGINNER,
+SENIOR,
+EXPERT
+}
+
+abstract class Person{
+- name: String;
+- address: String;
+}
+
+class Player extends Person{
+- number: int;
+- position: Position;
+}
+
+class Coach extends Person{
+- level: CoachLevel;
+- numberOfYearsOfExperience: int;
+}
+
+class Team{
+- players: Set<Person>;
+- name: String;
+- gamesHistory: List<Game>;
++ addPlayer(Person): void;
++ addGame(Game): void;
++ getWins(): int;
+}
+
+class Score{
+- team1Goals: int;
+- team2Goals: int;
+}
+
+enum Outcome{
+TEAM1,
+TEAM2,
+TIE
+}
+
+class Game{
+- score: Score;
+- team1: Team;
+- team2: Team;
+- location: String;
+- outcome: Outcome;
++ processOutcome(): void;
+}
+
+class HockeyLeague{
+- teams: List<Team>;
++ addTeam(Team): void;
++ getTeamWithMostWins(): Team;
++ getWinsForEachTeam(): Map<Team, Integer>;
+}
+
+Coach-->CoachLevel
+Player-->Position
+Team-->Person
+Team--Game
+Game-->Outcome
+Game-->Score
+HockeyLeague-->Team
+
+
+@enduml
